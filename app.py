@@ -9,7 +9,7 @@ from groq import Groq
 # ============================================
 st.set_page_config(page_title="Scam Shield PK", page_icon="🛡️", layout="wide")
 
-MODEL_NAME = "llama-3.3-70b-versatile"
+MODEL_NAME = "openai/gpt-oss-120b"
 
 SYSTEM_PROMPT = """You are a fraud-detection assistant specialised in scam messages
 that circulate in Pakistan (fake bank SMS, lottery/prize scams, fake job offers,
