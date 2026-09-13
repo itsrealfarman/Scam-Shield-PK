@@ -66,13 +66,8 @@ EXAMPLES = {
 # SIDEBAR
 # ============================================
 with st.sidebar:
-    st.header("⚙️ Settings")
-    api_key = st.text_input(
-        "Groq API key",
-        value=st.secrets.get("GROQ_API_KEY", ""),
-        type="password",
-        help="Get a free key at console.groq.com. Stored only for this session.",
-    )
+   
+  
     st.caption(
         "For deployment, add GROQ_API_KEY under Streamlit Cloud → App settings → Secrets, "
         "and this field will auto-fill."
