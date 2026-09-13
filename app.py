@@ -66,8 +66,13 @@ EXAMPLES = {
 # SIDEBAR
 # ============================================
 with st.sidebar:
-   
-  
+    st.header("⚙️ Settings")
+    api_key = st.text_input(
+        "Groq API key",
+        value=st.secrets.get("GROQ_API_KEY", ""),
+        type="password",
+        help="Get a free key at console.groq.com. Stored only for this session.",
+    )
     st.caption(
         "For deployment, add GROQ_API_KEY under Streamlit Cloud → App settings → Secrets, "
         "and this field will auto-fill."
@@ -131,7 +136,16 @@ RISK_COLOR = {
     "Critical": "🚨",
 }
 
-
+if check_clicked:
+    if not api_key:
+        st.error("❌ Please enter your Groq API key in the sidebar first.")
+    elif not message_text.strip():
+        st.warning("⚠️ Please paste a message to analyse.")
+    else:
+        try:
+            with st.spinner("Analysing message..."):
+                client = Groq(api_key=api_key)
+                result = analyze_message(client, message_text)
 
             st.markdown("---")
             col1, col2 = st.columns(2)
