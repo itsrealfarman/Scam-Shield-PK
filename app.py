@@ -65,23 +65,19 @@ EXAMPLES = {
 # ============================================
 # SIDEBAR
 # ============================================
+# API key is read silently from Streamlit secrets — never shown in the UI.
+api_key = st.secrets.get("GROQ_API_KEY", "")
+
 with st.sidebar:
-    st.header("⚙️ Settings")
-    api_key = st.text_input(
-        "Groq API key",
-        value=st.secrets.get("GROQ_API_KEY", ""),
-        type="password",
-        help="Get a free key at console.groq.com. Stored only for this session.",
-    )
-    st.caption(
-        "For deployment, add GROQ_API_KEY under Streamlit Cloud → App settings → Secrets, "
-        "and this field will auto-fill."
-    )
-    st.markdown("---")
     st.markdown(
         "**Scam Shield PK** analyses SMS / WhatsApp / email text using an LLM "
         "(via Groq) to flag likely fraud common in Pakistan, and explains *why*."
     )
+    if not api_key:
+        st.warning(
+            "⚠️ No Groq API key configured. Add GROQ_API_KEY under "
+            "Streamlit Cloud → App settings → Secrets."
+        )
 
 # ============================================
 # TITLE
@@ -138,7 +134,7 @@ RISK_COLOR = {
 
 if check_clicked:
     if not api_key:
-        st.error("❌ Please enter your Groq API key in the sidebar first.")
+        st.error("❌ Groq API key not configured. Please contact the app owner.")
     elif not message_text.strip():
         st.warning("⚠️ Please paste a message to analyse.")
     else:
